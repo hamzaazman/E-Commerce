@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">E-Ticaret</string>
+    <string name="bottom_nav_home">Anasayfa</string>
+    <string name="bottom_nav_favorite">Favorilerim</string>
+    <string name="bottom_nav_cart">Sepetim</string>
+    <string name="bottom_nav_profile">Hesabım</string>
+    <string name="login_email_edittext_hint">E-Posta</string>
+    <string name="login_password_edittext_hint">Şifre</string>
+    <string name="button_text_login">Giriş Yap</string>
+    <string name="edittext_name_hint">Adınız ve Soyadınız</string>
+    <string name="button_text_signup">Kayıt Ol</string>
+
+
+    <string-array name="titleList">
+        <item>Giriş Yap</item>
+        <item>Kayıt Ol</item>
+    </string-array>
+</resources>
