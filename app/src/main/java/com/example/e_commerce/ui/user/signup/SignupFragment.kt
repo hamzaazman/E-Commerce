@@ -8,14 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerce.MainActivity
 import com.example.e_commerce.R
+import com.example.e_commerce.common.Singleton
 import com.example.e_commerce.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment() {
-    val viewModel : SignupViewModel by viewModels()
+    private val viewModel : SignupViewModel by activityViewModels()
+
     lateinit var binding : FragmentSignupBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_signup,container,false)
@@ -27,20 +31,35 @@ class SignupFragment : Fragment() {
         binding.signupFragment = this
         observeLiveData()
     }
-    fun login(){
+    fun signup(){
         val email = binding.emailEdittext.text.toString()
         val password = binding.passwordEdittext.text.toString()
-        viewModel.signup(email,password)
+        val nameLastname = binding.nameEdittext.text.toString()
+        val phoneNumber = binding.phoneNumberEdittext.text.toString()
+        viewModel.signup(email,password,nameLastname, phoneNumber)
     }
-    fun observeLiveData(){
+    private fun observeLiveData(){
         viewModel._isSignUp.observe(viewLifecycleOwner){isSignUp ->
             if(isSignUp){
+                Toast.makeText(requireContext(),"Signup is succesfull",Toast.LENGTH_SHORT).show()
+            }
+            else{
+               Toast.makeText(requireContext(),"Kullanıcı Oluşturulamadı",Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.isSaved.observe(viewLifecycleOwner){isSaved ->
+            if (isSaved){
                 Toast.makeText(requireContext(),"Giriş Başarılı",Toast.LENGTH_SHORT).show()
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
+            }else{
+                Toast.makeText(requireContext(),"Veriler Kaydedilemedi",Toast.LENGTH_SHORT).show()
             }
-            else{
-                Toast.makeText(requireContext(),"Bir Hata Oluştu",Toast.LENGTH_SHORT).show()
+        }
+        viewModel.isEmpty.observe(viewLifecycleOwner){isEmpty ->
+            if (isEmpty){
+                Toast.makeText(requireContext(),"Boşlukları Doldurun",Toast.LENGTH_SHORT).show()
             }
         }
     }

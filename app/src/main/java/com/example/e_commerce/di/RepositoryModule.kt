@@ -1,5 +1,6 @@
 package com.example.e_commerce.di
 
+import com.example.e_commerce.data.repos.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -10,14 +11,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object  FirebaseModule {
+object RepositoryModule {
     @Provides
     @Singleton
-    fun firebaseAuthProvide() : FirebaseAuth {
-        println("Firebase Auth Module Çalıltı")
-       return FirebaseAuth.getInstance()
-    }
-    @Provides
-    @Singleton
-    fun firebaseDatabaseProvide() : FirebaseFirestore = FirebaseFirestore.getInstance()
+    fun provideUserRepo(firebaseAuth: FirebaseAuth,fireStore : FirebaseFirestore) : UserRepository = UserRepository(firebaseAuth,fireStore)
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.e_commerce.MainActivity
 import com.example.e_commerce.R
+import com.example.e_commerce.data.repos.UserRepository
 import com.example.e_commerce.databinding.ActivityLoginBinding
 
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,8 +19,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
-    val adapter = ViewPagerAdapter(supportFragmentManager,lifecycle)
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
+
+
+    private lateinit var binding: ActivityLoginBinding
+    private val adapter = ViewPagerAdapter(supportFragmentManager,lifecycle)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login)
@@ -36,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         }.attach()
     }
     private fun userControl(){
-       Firebase.auth.currentUser?.let {
+       firebaseAuth.currentUser?.let {
             startActivity(Intent(this,MainActivity::class.java))
             finish()
         }

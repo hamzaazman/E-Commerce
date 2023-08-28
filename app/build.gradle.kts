@@ -9,11 +9,11 @@ plugins {
 
 android {
     namespace = "com.example.e_commerce"
-    compileSdk = 34
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.example.e_commerce"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -35,14 +35,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
-val navVersion = "2.7.0"
+val navVersion = "2.5.3"
 val roomVersion = "2.5.2"
 val retrofitVersion = "2.9.0"
 val coroutineVersion = "1.6.4"

@@ -8,13 +8,16 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-class SignupViewModel  : ViewModel() {
-
-    private val userRepository = UserRepository()
+@HiltViewModel
+class SignupViewModel  @Inject constructor(val repository: UserRepository): ViewModel() {
     var _isSignUp = MutableLiveData<Boolean>()
-    //val isSignUp : LiveData<Boolean> = _isSignUp
+    var isEmpty = MutableLiveData<Boolean>()
+    var isSaved = MutableLiveData<Boolean>()
+
     init {
-        _isSignUp = userRepository.isSignUp
+        _isSignUp = repository.isSignUp
+        isEmpty = repository.isEmpty
+        isSaved = repository.isSaved
     }
-    fun signup(email : String,password : String) = userRepository.signUp(email, password)
+    fun signup(email : String,password : String,nameLastname : String,phoneNumber : String) = repository.signUp(email, password,nameLastname, phoneNumber)
 }
