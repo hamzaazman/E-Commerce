@@ -14,7 +14,9 @@
     <string name="success_message1">Kayıt başarılı</string>
     <string name="error_message1">Kayıt Başarısız Oldu</string>
     <string name="blanks_error">Lütfen boşlukları doldurun</string>
-
+    <string name="name_text">Adınız :</string>
+    <string name="email_text">E-Posta :</string>
+    <string name="phone_text">Tel :</string>
     <string-array name="titleList">
         <item>Giriş Yap</item>
         <item>Kayıt Ol</item>

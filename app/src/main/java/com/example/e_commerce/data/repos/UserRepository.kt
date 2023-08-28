@@ -24,6 +24,7 @@ class UserRepository @Inject constructor(private val firebaseAuth: FirebaseAuth,
     val isSaved = MutableLiveData<Boolean>()
     val isSignIn = MutableLiveData<Boolean>()
     fun signUp(email : String,password : String,nameLastname : String,phoneNumber : String){
+
         if (email.isEmpty() || password.isEmpty() || nameLastname.isEmpty() || phoneNumber.isEmpty()){
             isEmptySignUp.value = true
         }else{
@@ -35,7 +36,7 @@ class UserRepository @Inject constructor(private val firebaseAuth: FirebaseAuth,
                     PHONE_NUMBER to phoneNumber,
                     USER_EMAIL to email
                 )
-                fireStore.collection(USER).add(userMap).addOnCompleteListener {
+                fireStore.collection(USER).document(email).set(userMap).addOnCompleteListener {
                     if (it.isSuccessful){
                         isSaved.value = true
                     }
