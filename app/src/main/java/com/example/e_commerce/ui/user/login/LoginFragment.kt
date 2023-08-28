@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import com.example.e_commerce.MainActivity
 import com.example.e_commerce.R
 import com.example.e_commerce.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
+    private val  viewModel: LoginViewModel by activityViewModels()
     lateinit var binding : FragmentLoginBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login,container,false)
@@ -22,10 +24,22 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.loginFragment = this
+        observeLiveData()
     }
     fun login(){
-        Toast.makeText(requireContext(),"Signup is succesfull!",Toast.LENGTH_SHORT).show()
-        val intent = Intent(requireActivity(),MainActivity::class.java)
-        startActivity(intent)
+        val email = binding.emailEdittext.text.toString()
+        val password = binding.passwordEdittext.text.toString()
+        viewModel.signIn(email, password)
+    }
+    fun observeLiveData(){
+        viewModel.isSignIn.observe(viewLifecycleOwner){
+            startActivity(Intent(requireActivity().applicationContext,MainActivity::class.java))
+            requireActivity().finish()
+        }
+        viewModel.isEmpty.observe(viewLifecycleOwner){
+            if (it){
+                Toast.makeText(requireContext(),R.string.blanks_error,Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

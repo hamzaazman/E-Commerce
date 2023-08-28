@@ -56,7 +56,7 @@ class SignupFragment : Fragment() {
         }
         viewModel.isEmpty.observe(viewLifecycleOwner){isEmpty ->
             if (isEmpty){
-                Toast.makeText(requireContext(),"Boşlukları Doldurun",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),R.string.blanks_error,Toast.LENGTH_SHORT).show()
             }
         }
     }

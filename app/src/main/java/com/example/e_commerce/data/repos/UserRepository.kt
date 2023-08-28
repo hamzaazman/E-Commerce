@@ -18,14 +18,16 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val firebaseAuth: FirebaseAuth,private val fireStore: FirebaseFirestore){
     val isSignUp = MutableLiveData<Boolean>()
-    val isEmpty = MutableLiveData<Boolean>()
+    val isEmptySignUp = MutableLiveData<Boolean>()
+    val isEmptySignIn = MutableLiveData<Boolean>()
+
     val isSaved = MutableLiveData<Boolean>()
     val isSignIn = MutableLiveData<Boolean>()
     fun signUp(email : String,password : String,nameLastname : String,phoneNumber : String){
         if (email.isEmpty() || password.isEmpty() || nameLastname.isEmpty() || phoneNumber.isEmpty()){
-            isEmpty.value = true
+            isEmptySignUp.value = true
         }else{
-            isEmpty.value = false
+            isEmptySignUp.value = false
             firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {
                 isSignUp.value = true
                 val userMap = hashMapOf<String,String>(
@@ -47,11 +49,17 @@ class UserRepository @Inject constructor(private val firebaseAuth: FirebaseAuth,
 
     }
     fun signIn(email: String,password: String){
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
-            isSignIn.value = true
-        }.addOnFailureListener {
-            isSignIn.value = false
+        if (email.isEmpty() || password.isEmpty()){
+            isEmptySignIn.value = true
+        }else{
+            isEmptySignIn.value = false
+            firebaseAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
+                isSignIn.value = true
+            }.addOnFailureListener {
+                isSignIn.value = false
+            }
         }
+
     }
 
 }
