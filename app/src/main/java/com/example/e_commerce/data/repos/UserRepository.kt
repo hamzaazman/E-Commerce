@@ -43,7 +43,6 @@ class UserRepository @Inject constructor(private val firebaseAuth: FirebaseAuth,
 
             }.addOnFailureListener{
                 isSignUp.value = false
-                Singleton.errorMessage = it.localizedMessage.toString()
             }
         }
 

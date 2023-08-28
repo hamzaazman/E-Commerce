@@ -32,12 +32,16 @@ class LoginFragment : Fragment() {
         viewModel.signIn(email, password)
     }
     fun observeLiveData(){
-        viewModel.isSignIn.observe(viewLifecycleOwner){
-            startActivity(Intent(requireActivity().applicationContext,MainActivity::class.java))
-            requireActivity().finish()
+        viewModel.isSignIn.observe(viewLifecycleOwner){isSignIn ->
+            if (isSignIn){
+                startActivity(Intent(requireActivity().applicationContext,MainActivity::class.java))
+                requireActivity().finish()
+            }else{
+                Toast.makeText(requireContext(),"Giriş Yapılmadı",Toast.LENGTH_SHORT).show()
+            }
         }
-        viewModel.isEmpty.observe(viewLifecycleOwner){
-            if (it){
+        viewModel.isEmpty.observe(viewLifecycleOwner){isEmpty ->
+            if (isEmpty){
                 Toast.makeText(requireContext(),R.string.blanks_error,Toast.LENGTH_SHORT).show()
             }
         }
