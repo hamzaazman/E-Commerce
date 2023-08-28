@@ -11,6 +11,9 @@
     <string name="edittext_name_hint">Adınız ve Soyadınız</string>
     <string name="button_text_signup">Kayıt Ol</string>
     <string name="edittext_phone_number_hint">Telefon Numarası</string>
+    <string name="success_message1">Kayıt başarılı</string>
+    <string name="error_message1">Kayıt Başarısız Oldu</string>
+
     <string-array name="titleList">
         <item>Giriş Yap</item>
         <item>Kayıt Ol</item>

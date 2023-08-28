@@ -1,5 +1,6 @@
 package com.example.e_commerce.ui.user.signup
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,9 +20,8 @@ import com.example.e_commerce.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment() {
     private val viewModel : SignupViewModel by activityViewModels()
-
     lateinit var binding : FragmentSignupBinding
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_signup,container,false)
         return binding.root
     }
@@ -41,20 +41,17 @@ class SignupFragment : Fragment() {
     private fun observeLiveData(){
         viewModel._isSignUp.observe(viewLifecycleOwner){isSignUp ->
             if(isSignUp){
-                Toast.makeText(requireContext(),"Signup is succesfull",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),R.string.success_message1,Toast.LENGTH_SHORT).show()
             }
             else{
-               Toast.makeText(requireContext(),"Kullanıcı Oluşturulamadı",Toast.LENGTH_SHORT).show()
+               Toast.makeText(requireContext(),R.string.error_message1,Toast.LENGTH_SHORT).show()
             }
         }
         viewModel.isSaved.observe(viewLifecycleOwner){isSaved ->
             if (isSaved){
-                Toast.makeText(requireContext(),"Giriş Başarılı",Toast.LENGTH_SHORT).show()
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
-            }else{
-                Toast.makeText(requireContext(),"Veriler Kaydedilemedi",Toast.LENGTH_SHORT).show()
             }
         }
         viewModel.isEmpty.observe(viewLifecycleOwner){isEmpty ->

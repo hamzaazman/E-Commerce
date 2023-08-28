@@ -11,6 +11,8 @@
 
     <string name="edittext_name_hint">Name and Lastname</string>
     <string name="edittext_phone_number_hint">Phone Number</string>
+    <string name="success_message1">Signup is successful</string>
+    <string name="error_message1">Signup is failed!</string>
     <string-array name="titleList">
         <item>Login</item>
         <item>Signup</item>
