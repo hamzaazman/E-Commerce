@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.e_commerce.MainActivity
 import com.example.e_commerce.R
 import com.example.e_commerce.databinding.FragmentLoginBinding
+import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment() {
     private val  viewModel: LoginViewModel by activityViewModels()
@@ -31,19 +33,23 @@ class LoginFragment : Fragment() {
         val password = binding.passwordEdittext.text.toString()
         viewModel.signIn(email, password)
     }
-    fun observeLiveData(){
-        viewModel.isSignIn.observe(viewLifecycleOwner){isSignIn ->
+    private fun observeLiveData() = with(viewModel){
+        isSignIn.observe(viewLifecycleOwner){isSignIn ->
             if (isSignIn){
-                startActivity(Intent(requireActivity().applicationContext,MainActivity::class.java))
+                Toast.makeText(requireContext(),"İs Sign In çalıştı",Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
                 requireActivity().finish()
+
             }else{
-                Toast.makeText(requireContext(),"Giriş Yapılmadı",Toast.LENGTH_SHORT).show()
+               Snackbar.make(requireView(), "Giriş Yapılamadı", Snackbar.LENGTH_SHORT).show()
             }
         }
-        viewModel.isEmpty.observe(viewLifecycleOwner){isEmpty ->
+        isEmpty.observe(viewLifecycleOwner){isEmpty ->
             if (isEmpty){
                 Toast.makeText(requireContext(),R.string.blanks_error,Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 }

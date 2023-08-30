@@ -4,6 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
+            name="profileFragment"
+            type="com.example.e_commerce.ui.profile.ProfileFragment" />
+        <variable
             name="email"
             type="String" />
         <variable
@@ -94,7 +97,20 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/phoneNumberTextH"
                 app:layout_constraintTop_toBottomOf="@id/NameTextH" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> profileFragment.signOut()}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/signuot_text"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

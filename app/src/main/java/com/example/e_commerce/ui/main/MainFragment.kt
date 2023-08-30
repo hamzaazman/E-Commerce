@@ -22,11 +22,5 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonCikis.setOnClickListener {
-            Firebase.auth.signOut().run {
-                startActivity(Intent(requireActivity(),LoginActivity::class.java))
-                requireActivity().finish()
-            }
-        }
     }
 }

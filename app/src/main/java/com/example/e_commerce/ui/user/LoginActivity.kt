@@ -3,6 +3,7 @@ package com.example.e_commerce.ui.user
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.e_commerce.MainActivity
 import com.example.e_commerce.R
@@ -22,15 +23,15 @@ class LoginActivity : AppCompatActivity() {
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
 
-
     private lateinit var binding: ActivityLoginBinding
     private val adapter = ViewPagerAdapter(supportFragmentManager,lifecycle)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         setContentView(binding.root)
-        userControl()
         binding.loginActivity = this
+        userControl()
+        Toast.makeText(applicationContext,"Login activity run",Toast.LENGTH_SHORT).show()
         setupWithViewPager()
     }
     private fun setupWithViewPager(){
@@ -41,8 +42,9 @@ class LoginActivity : AppCompatActivity() {
         }.attach()
     }
     private fun userControl(){
-       firebaseAuth.currentUser?.let {
+        if (firebaseAuth.currentUser != null){
             startActivity(Intent(this,MainActivity::class.java))
+            Toast.makeText(this,"User control run",Toast.LENGTH_SHORT).show()
             finish()
         }
     }

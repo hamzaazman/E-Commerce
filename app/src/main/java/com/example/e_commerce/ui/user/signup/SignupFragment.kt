@@ -51,7 +51,6 @@ class SignupFragment : Fragment() {
             if (isSaved){
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
-                requireActivity().finish()
             }
         }
         viewModel.isEmpty.observe(viewLifecycleOwner){isEmpty ->

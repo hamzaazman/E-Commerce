@@ -9,8 +9,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private var repository: ProfileRepository): ViewModel() {
-    init {
-        println("Profile Vİew Model İnit")
-    }
     fun getUser() = repository.getUser()
+    fun signOut() = repository.signOut()
 }
