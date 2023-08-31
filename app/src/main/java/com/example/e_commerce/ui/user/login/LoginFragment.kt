@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
                 requireActivity().finish()
 
             }else{
-               Snackbar.make(requireView(), "Giriş Yapılamadı", Snackbar.LENGTH_SHORT).show()
+              println("Error")
             }
         }
         isEmpty.observe(viewLifecycleOwner){isEmpty ->
