@@ -11,13 +11,13 @@ import retrofit2.Response
 
 
 class MainRepository @Inject constructor(private val api : RetrofitApi){
-    fun getData(){
+    suspend fun getData(){
         api.getProducts().enqueue(object : Callback<Products>{
             override fun onResponse(call: Call<Products>, response: Response<Products>) {
-                println("Veriler Geldi")
+                println("Data İs Successful")
             }
             override fun onFailure(call: Call<Products>, t: Throwable) {
-                println("Veriler Gelmedi Çünkü : ${t.message}")
+                println("Error : ${t.message}")
             }
         })
     }
