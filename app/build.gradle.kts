@@ -45,7 +45,7 @@ android {
 val navVersion = "2.5.3"
 val roomVersion = "2.5.2"
 val retrofitVersion = "2.9.0"
-val coroutineVersion = "1.6.4"
+val coroutineVersion = "1.7.1"
 val lifecycleVersion = "2.6.1"
 val hiltVersion = "2.44"
 

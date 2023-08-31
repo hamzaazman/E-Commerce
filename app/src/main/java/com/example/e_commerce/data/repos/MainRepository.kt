@@ -11,7 +11,7 @@ import retrofit2.Response
 
 
 class MainRepository @Inject constructor(private val api : RetrofitApi){
-    suspend fun getData(){
+    fun getData(){
         api.getProducts().enqueue(object : Callback<Products>{
             override fun onResponse(call: Call<Products>, response: Response<Products>) {
                 println("Data İs Successful")

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repo : MainRepository): ViewModel() {
-    fun getData() = viewModelScope.launch{
-        repo.getData()
+    fun getData(){
+      repo.getData()
     }
 }
