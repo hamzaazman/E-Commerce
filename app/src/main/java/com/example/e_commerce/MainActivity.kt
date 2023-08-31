@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setUpWithNavigationBar(){
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        NavigationUI.setupWithNavController(binding.bottomNavMain, navHost.navController)
+        NavigationUI.setupWithNavController(binding.bottomNavMain, navHost.findNavController())
     }
+
 }
