@@ -15,9 +15,9 @@
         app:itemIconTint="@drawable/bottom_nav_tint"
         app:itemTextColor="@drawable/bottom_nav_tint"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_bar_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_bar_menu"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

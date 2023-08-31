@@ -2,12 +2,11 @@ package com.example.e_commerce.data.repos
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.e_commerce.common.Constants
 import com.example.e_commerce.common.Constants.NAME
 import com.example.e_commerce.common.Constants.PHONE_NUMBER
 import com.example.e_commerce.common.Constants.USER
 import com.example.e_commerce.common.Constants.USER_EMAIL
-import com.example.e_commerce.data.model.User
+import com.example.e_commerce.data.model.firebase.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject

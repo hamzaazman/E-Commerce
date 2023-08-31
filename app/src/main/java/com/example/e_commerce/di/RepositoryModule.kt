@@ -1,6 +1,5 @@
 package com.example.e_commerce.di
 
-import com.example.e_commerce.data.model.User
 import com.example.e_commerce.data.repos.ProfileRepository
 import com.example.e_commerce.data.repos.UserRepository
 import com.google.firebase.auth.FirebaseAuth
