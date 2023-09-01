@@ -13,12 +13,18 @@ import com.example.e_commerce.databinding.ProductListItemBinding
 
 class ProductAdapter(val list : ArrayList<ProductsItem>,val context: Context) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+    var onClick : (ProductsItem) -> Unit = {}
      class ProductViewHolder(val binding : ProductListItemBinding) : RecyclerView.ViewHolder(binding.root){
-         fun bind(position: Int,url : String,context : Context,price : Double,title : String){
-             binding.productItemImage.loadImage(url = url, context = context)
-             binding.priceText = "$price$"
-             binding.titleText = title
-             binding.oldPriceText = price + 3
+         fun bind(position: Int,context : Context,onClick : (ProductsItem) -> Unit = {},productsItem: ProductsItem){
+             with(binding){
+                 productItemImage.loadImage(url = productsItem.image, context = context)
+                 priceText = "${productsItem.price}$"
+                 titleText = productsItem.title
+                 rootView.setOnClickListener{
+                     onClick(productsItem)
+                 }
+             }
+
          }
     }
 
@@ -30,6 +36,6 @@ class ProductAdapter(val list : ArrayList<ProductsItem>,val context: Context) : 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(position = position,list.get(position).image, context = context,list.get(position).price,list.get(position).title)
+        holder.bind(position = position, context = context,onClick,list[position])
     }
 }

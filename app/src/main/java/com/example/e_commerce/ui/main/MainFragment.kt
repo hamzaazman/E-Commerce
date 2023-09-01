@@ -12,14 +12,16 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.R
 import com.example.e_commerce.databinding.FragmentMainBinding
+import com.example.e_commerce.ui.detail.DetailActivity
 import com.example.e_commerce.ui.user.LoginActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-    val vM : MainViewModel by viewModels()
+    private val viewModel : MainViewModel by viewModels()
     lateinit var binding : FragmentMainBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
@@ -28,17 +30,47 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vM.getData()
+        viewModel.getData()
         observerLiveData()
         //string.take()
     }
     private fun observerLiveData(){
-        vM._productsItemList.observe(viewLifecycleOwner){list ->
-            Toast.makeText(requireContext(),"Liste Değişti",Toast.LENGTH_SHORT).show()
-            val adapter = ProductAdapter(list,requireContext())
-            binding.productsRw.adapter = adapter
-            binding.productsRw.layoutManager = GridLayoutManager(requireContext(),2)
+        with(viewModel){
+            productsItemList.observe(viewLifecycleOwner){list ->
+                Toast.makeText(requireContext(),"Liste Değişti",Toast.LENGTH_SHORT).show()
+                val adapter = ProductAdapter(list,requireContext())
+                with(binding){
+                    adapter.onClick = {
+
+                    }
+                    productsProgress.visibility = View.INVISIBLE
+                    productsRw.visibility = View.VISIBLE
+                    productsRw.adapter = adapter
+                    productsRw.layoutManager = GridLayoutManager(requireContext(),2)
+                }
+
+            }
+            isLoading.observe(viewLifecycleOwner){
+                if (it){
+                    with(binding){
+                        productsProgress.visibility = View.VISIBLE
+                        productsRw.visibility = View.INVISIBLE
+                    }
+                }
+
+            }
+            error.observe(viewLifecycleOwner){
+                if (it){
+                    with(binding){
+                        productsProgress.visibility = View.INVISIBLE
+                        productsRw.visibility = View.INVISIBLE
+                        Snackbar.make(requireView(),"Error!",Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
 
         }
+
     }
 }

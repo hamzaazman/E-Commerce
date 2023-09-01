@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.loginActivity = this
         userControl()
-        Toast.makeText(applicationContext,"Login activity run",Toast.LENGTH_SHORT).show()
         setupWithViewPager()
     }
     private fun setupWithViewPager(){
@@ -44,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
     private fun userControl(){
         if (firebaseAuth.currentUser != null){
             startActivity(Intent(this,MainActivity::class.java))
-            Toast.makeText(this,"User control run",Toast.LENGTH_SHORT).show()
             finish()
         }
     }

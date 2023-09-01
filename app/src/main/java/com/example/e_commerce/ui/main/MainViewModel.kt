@@ -1,5 +1,7 @@
 package com.example.e_commerce.ui.main
 
+import android.provider.LiveFolders
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +16,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repo : MainRepository): ViewModel() {
-    var _productsItemList = MutableLiveData<ArrayList<ProductsItem>>()
+    private var _productsItemList = MutableLiveData<ArrayList<ProductsItem>>()
+    val productsItemList : LiveData<ArrayList<ProductsItem>>
+        get() = _productsItemList
+    private var _isLoading = MutableLiveData<Boolean>()
+    val isLoading : LiveData<Boolean>
+        get() = _isLoading
+    private var _error = MutableLiveData<Boolean>()
+    val error : LiveData<Boolean>
+        get() = _error
+
     init {
         _productsItemList = repo.productsItemList
+        _isLoading = repo.isLoading
+        _error = repo.error
     }
     fun getData() {
         repo.getData()
