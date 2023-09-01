@@ -16,7 +16,10 @@
     <string name="edittext_phone_number_hint">Phone Number :</string>
     <string name="success_message1">Signup is successful</string>
     <string name="error_message1">Signup is failed!</string>
+    <string name="categories_text">Categories</string>
+
     <string name="blanks_error">Please fill in the blanks</string>
+
     <string-array name="titleList">
         <item>Login</item>
         <item>Signup</item>

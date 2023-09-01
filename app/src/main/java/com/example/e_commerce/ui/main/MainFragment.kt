@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.R
 import com.example.e_commerce.databinding.FragmentMainBinding
 import com.example.e_commerce.ui.user.LoginActivity
@@ -28,5 +29,16 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vM.getData()
+        observerLiveData()
+        //string.take()
+    }
+    private fun observerLiveData(){
+        vM._productsItemList.observe(viewLifecycleOwner){list ->
+            Toast.makeText(requireContext(),"Liste Değişti",Toast.LENGTH_SHORT).show()
+            val adapter = ProductAdapter(list,requireContext())
+            binding.productsRw.adapter = adapter
+            binding.productsRw.layoutManager = GridLayoutManager(requireContext(),2)
+
+        }
     }
 }
