@@ -11,13 +11,14 @@ import com.example.e_commerce.data.model.retrofit.Products
 import com.example.e_commerce.data.model.retrofit.ProductsItem
 import com.example.e_commerce.databinding.ProductListItemBinding
 
-class ProductAdapter(val list : ArrayList<ProductsItem>,val context: Context) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+    private val productList = ArrayList<ProductsItem>()
 
-    var onClick : (ProductsItem) -> Unit = {}
+     private val onItemClick : (ProductsItem) -> Unit = {}
      class ProductViewHolder(val binding : ProductListItemBinding) : RecyclerView.ViewHolder(binding.root){
-         fun bind(position: Int,context : Context,onClick : (ProductsItem) -> Unit = {},productsItem: ProductsItem){
+         fun bind(onClick : (ProductsItem) -> Unit = {},productsItem: ProductsItem){
              with(binding){
-                 productItemImage.loadImage(url = productsItem.image, context = context)
+                 productItemImage.loadImage(url = productsItem.image)
                  priceText = "${productsItem.price}$"
                  titleText = productsItem.title
                  rootView.setOnClickListener{
@@ -33,9 +34,14 @@ class ProductAdapter(val list : ArrayList<ProductsItem>,val context: Context) : 
         return ProductViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = productList.size
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(position = position, context = context,onClick,list[position])
+        holder.bind(onItemClick,productList[position])
+    }
+    fun loadData(newList : List<ProductsItem>){
+        productList.clear()
+        productList.addAll(newList)
+        println(productList.size)
     }
 }

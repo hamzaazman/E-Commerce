@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.R
+import com.example.e_commerce.data.model.retrofit.ProductsItem
 import com.example.e_commerce.databinding.FragmentMainBinding
 import com.example.e_commerce.ui.detail.DetailActivity
 import com.example.e_commerce.ui.user.LoginActivity
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     private val viewModel : MainViewModel by viewModels()
+    private val productAdapter by lazy { ProductAdapter() }
     lateinit var binding : FragmentMainBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
@@ -32,23 +34,29 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData()
         observerLiveData()
-        //string.take()
+        with(binding){
+            swipeRefreshLayout.setOnRefreshListener {
+                productsProgress.visibility = View.VISIBLE
+                productsRw.visibility = View.INVISIBLE
+                viewModel.getData()
+                swipeRefreshLayout.isRefreshing = false
+            }
+        }
+
     }
+
     private fun observerLiveData(){
         with(viewModel){
             productsItemList.observe(viewLifecycleOwner){list ->
-                Toast.makeText(requireContext(),"Liste Değişti",Toast.LENGTH_SHORT).show()
-                val adapter = ProductAdapter(list,requireContext())
                 with(binding){
-                    adapter.onClick = {
-
-                    }
                     productsProgress.visibility = View.INVISIBLE
                     productsRw.visibility = View.VISIBLE
-                    productsRw.adapter = adapter
-                    productsRw.layoutManager = GridLayoutManager(requireContext(),2)
+                    productsRw.apply {
+                        setHasFixedSize(true)
+                        layoutManager = GridLayoutManager(requireContext(),2)
+                        adapter = productAdapter.also { it.loadData(list) }
+                    }
                 }
-
             }
             isLoading.observe(viewLifecycleOwner){
                 if (it){

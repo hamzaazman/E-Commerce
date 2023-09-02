@@ -85,8 +85,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
-
-    implementation("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+    //Picasso
+    implementation("com.squareup.picasso:picasso:2.71828")
 
 }

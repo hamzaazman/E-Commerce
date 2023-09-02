@@ -2,8 +2,8 @@ package com.example.e_commerce.common
 
 import android.content.Context
 import android.widget.ImageView
-import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 
-fun ImageView.loadImage(url : String,context : Context){
-    Glide.with(context).load(url).into(this)
+fun ImageView.loadImage(url : String){
+   Picasso.get().load(url).into(this)
 }
